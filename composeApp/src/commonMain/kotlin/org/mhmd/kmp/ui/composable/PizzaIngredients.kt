@@ -1,7 +1,11 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package org.mhmd.kmp.ui.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kmp.composeapp.generated.resources.Res
 import kmp.composeapp.generated.resources.customize_your_pizza
@@ -25,23 +30,27 @@ fun PizzaIngredients(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(top = 32.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text(
             stringResource(Res.string.customize_your_pizza),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
+            style = MaterialTheme.typography.subtitle1.copy(
+                fontWeight = FontWeight.SemiBold
+            )
         )
-        LazyRow(
-            modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+        FlowRow(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(ingredients.size) { index ->
+            ingredients.forEach { item ->
                 IngredientRoundedButton(
-                    imageRes = ingredients[index].imageRes,
-                    onClick = { onIngredientClicked(ingredients[index]) },
-                    selected = ingredients[index].selected
+                    imageRes = item.imageRes,
+                    title = item.name,
+                    onClick = { onIngredientClicked(item) },
+                    selected = item.selected
                 )
             }
         }

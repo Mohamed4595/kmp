@@ -28,8 +28,8 @@ fun PizzaToppings(
             .scale(scale.value)
     ) {
         images.forEach { image ->
-            val randomOffsetX = remember { mutableStateOf(Random.nextInt(30, 230)) }
-            val randomOffsetY = remember { mutableStateOf(Random.nextInt(30, 230)) }
+            val randomOffsetX = remember { mutableStateOf(Random.nextInt(50, 190)) }
+            val randomOffsetY = remember { mutableStateOf(Random.nextInt(10, 130)) }
 
             ToppingItem(
                 imageRes = image,

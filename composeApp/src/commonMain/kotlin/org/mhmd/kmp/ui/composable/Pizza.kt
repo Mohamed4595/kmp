@@ -24,14 +24,14 @@ fun Pizza(
     pizzaSize: PizzaSize,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.padding(vertical = 24.dp),
+    Box(modifier = modifier.padding(vertical = 16.dp),
         contentAlignment = Alignment.Center) {
         Image(
             painter = painterResource(Res.drawable.plate),
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.Center)
-                .size(300.dp)
+                .size(200.dp)
         )
         PizzaPager(
             ingredients = ingredients,

@@ -1,11 +1,13 @@
 package org.mhmd.kmp.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Scaffold
@@ -52,29 +54,33 @@ private fun OrderScreenContent(
     onPizzaSizeClicked: (PizzaSize) -> Unit,
     onIngredientClicked: (OrderScreenUiState.Ingredient) -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Pizza(
-            ingredients = state.ingredients,
-            pizzaList = state.pizzaList,
-            pizzaSize = state.selectedSize,
-        )
-        PizzaPrice(price = state.totalPrice)
-        PizzaSizeSelection(selectedSize = state.selectedSize, onClick = onPizzaSizeClicked)
-        Spacer(modifier = Modifier.weight(1f))
-        PizzaIngredients(
-            ingredients = state.ingredients,
-            onIngredientClicked = onIngredientClicked,
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        RoundedButton(
-            label = stringResource(Res.string.add_to_cart),
-            icon = Icons.Filled.ShoppingCart,
-            onClick = { })
-        Spacer(modifier = Modifier.weight(1f))
+    LazyColumn {
+        item {
+            Column(
+                modifier = Modifier
+                    .padding(paddingValues),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+
+                Pizza(
+                    ingredients = state.ingredients,
+                    pizzaList = state.pizzaList,
+                    pizzaSize = state.selectedSize,
+                )
+                PizzaPrice(price = state.totalPrice)
+                PizzaSizeSelection(selectedSize = state.selectedSize, onClick = onPizzaSizeClicked)
+
+
+            }
+        }
+
+        item {
+            PizzaIngredients(
+                ingredients = state.ingredients,
+                onIngredientClicked = onIngredientClicked,
+            )
+        }
     }
+
 }
